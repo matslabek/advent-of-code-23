@@ -37,7 +37,7 @@ func readStringsFromFile(filePath string) ([]string, error) {
 
 func elvishCount(word string) int {
 	// Split the string
-	re := regexp.MustCompile(`\d+`)
+	re := regexp.MustCompile(`\d`)
 	matches := re.FindAllString(word, -1)
 
 	// Edge case - only one digit
@@ -45,13 +45,8 @@ func elvishCount(word string) int {
 		matches = append(matches, matches[0])
 	}
 
-	firstMatch := matches[0]
-	lastMatch := matches[len(matches)-1]
-
-	var firstDigit, lastDigit string
-	// Get first digit
-	firstDigit = string(firstMatch[0])
-	lastDigit = string(lastMatch[len(lastMatch)-1])
+	firstDigit := matches[0]
+	lastDigit := matches[len(matches)-1]
 
 	finalNumber, _ := strconv.Atoi(firstDigit + lastDigit)
 	return finalNumber
