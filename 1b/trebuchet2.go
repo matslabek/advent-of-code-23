@@ -38,11 +38,11 @@ func readStringsFromFile(filePath string) ([]string, error) {
 
 func elvishCount(word string) int {
 
-	// Split the string
-	re := regexp.MustCompile(`\d|(one|two|three|four|five|six|seven|eight|nine)`)
-	// Workaround for cases like "oneight"
+	// Workaround for cases like "oneight" with overlapping chars
 	word = duplicateCharacters(word)
 
+	// Split the string
+	re := regexp.MustCompile(`\d|(one|two|three|four|five|six|seven|eight|nine)`)
 	matches := re.FindAllString(word, -1)
 
 	// Edge case - only one digit
@@ -101,18 +101,21 @@ func stringToDigit(str string) string {
 	return "0"
 }
 
-// Workaround because go re2 has no positive overlook!!
+// Obnoxious workaround because go re2 has no positive overlook, so we need to prepare the string for the regex
 func duplicateCharacters(input string) string {
-	var result strings.Builder
-
-	for _, char := range input {
-		result.WriteRune(char)
-
-		// Duplicate 'e', 't', and 'o' characters
-		if char == 'e' || char == 't' || char == 'o' {
-			result.WriteRune(char)
-		}
-	}
-
-	return result.String()
+	s1 := strings.SplitAfter(input, "one")
+	i1 := strings.Join(s1, "e")
+	s2 := strings.SplitAfter(i1, "two")
+	i2 := strings.Join(s2, "o")
+	s3 := strings.SplitAfter(i2, "three")
+	i3 := strings.Join(s3, "e")
+	s5 := strings.SplitAfter(i3, "five")
+	i5 := strings.Join(s5, "e")
+	s7 := strings.SplitAfter(i5, "seven")
+	i7 := strings.Join(s7, "n")
+	s8 := strings.SplitAfter(i7, "eight")
+	i8 := strings.Join(s8, "t")
+	s9 := strings.SplitAfter(i8, "nine")
+	i9 := strings.Join(s9, "e")
+	return i9
 }
