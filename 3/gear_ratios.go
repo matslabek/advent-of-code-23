@@ -48,9 +48,6 @@ func GearRatios() {
 				}
 				// We got the number, check if it neighbors a symbol
 				if numberEnd != nil {
-					if numberString == "959" {
-						fmt.Println("ok")
-					}
 					if checkForSymbolsNearby(x, *numberStart, *numberEnd, inputStrings) {
 						fmt.Println(numberString)
 						value, _ := strconv.Atoi(numberString)

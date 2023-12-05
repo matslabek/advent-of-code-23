@@ -1,7 +1,7 @@
 package main
 
-import cube_conundrum "AdventOfCode/2"
+import puzzle "AdventOfCode/3"
 
 func main() {
-	cube_conundrum.Cube()
+	puzzle.GearRatios()
 }
