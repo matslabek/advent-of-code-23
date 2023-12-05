@@ -1,40 +1,12 @@
-package main
+package trebuchet2
 
 import (
-	"bufio"
+	"AdventOfCode/1"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
 )
-
-// Read input strings
-func readStringsFromFile(filePath string) ([]string, error) {
-	// Open the file
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	// Create a scanner to read the file line by line
-	scanner := bufio.NewScanner(file)
-
-	var strings []string
-
-	// Read each line and append it to the strings slice
-	for scanner.Scan() {
-		strings = append(strings, scanner.Text())
-	}
-
-	// Check for any errors during scanning
-	if err := scanner.Err(); err != nil {
-		return nil, err
-	}
-
-	return strings, nil
-}
 
 func elvishCount(word string) int {
 
@@ -65,10 +37,10 @@ func elvishCount(word string) int {
 	return finalNumber
 }
 
-func main() {
+func Trebuchet2() {
 	filePath := "1/input.txt"
 
-	strings, err := readStringsFromFile(filePath)
+	strings, err := trebuchet.ReadStringsFromFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return

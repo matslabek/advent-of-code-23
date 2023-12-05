@@ -1,4 +1,4 @@
-package main
+package trebuchet
 
 import (
 	"bufio"
@@ -9,7 +9,7 @@ import (
 )
 
 // Read input strings
-func readStringsFromFile(filePath string) ([]string, error) {
+func ReadStringsFromFile(filePath string) ([]string, error) {
 	// Open the file
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -52,10 +52,10 @@ func elvishCount(word string) int {
 	return finalNumber
 }
 
-func main() {
+func Trebuchet() {
 	filePath := "1/input.txt"
 
-	strings, err := readStringsFromFile(filePath)
+	strings, err := ReadStringsFromFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return
