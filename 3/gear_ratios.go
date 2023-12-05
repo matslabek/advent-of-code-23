@@ -62,6 +62,7 @@ func GearRatios() {
 	}
 	fmt.Println(sum)
 }
+
 func checkForSymbolsNearby(rowNumber, start, end int, rowsAndColumns []string) bool {
 	numberLength := end - start + 1
 	//Check left
