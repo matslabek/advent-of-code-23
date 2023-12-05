@@ -13,22 +13,28 @@ func Cube() {
 	const GreenMax = 13
 	const BlueMax = 14
 
-	strings, err := trebuchet.ReadStringsFromFile(FilePath)
+	inputStrings, err := trebuchet.ReadStringsFromFile(FilePath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return
 	}
+
 	sum := 0
-	// Count the sum
-	for _, str := range strings {
+	power := 0
+	for _, str := range inputStrings {
 		gameResult := parseCubeString(str)
 		for gameNumber, result := range gameResult {
+			//Part one of the puzzle, calculate the sum of the possible games
 			if result["red"] <= RedMax && result["green"] <= GreenMax && result["blue"] <= BlueMax {
 				sum += gameNumber
 			}
+			//Part two of the puzzle, calculate the fewest number of required cubes and the power of the game
+			powerOfGame := result["red"] * result["green"] * result["blue"]
+			power += powerOfGame
 		}
 	}
 	fmt.Println(sum)
+	fmt.Println(power)
 }
 
 func parseCubeString(gameResultString string) map[int]map[string]int {
