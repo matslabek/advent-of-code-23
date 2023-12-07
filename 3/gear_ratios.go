@@ -19,11 +19,14 @@ func GearRatios() {
 		return
 	}
 	sum := 0
+	// Part two, part numbers map
+	partNumbersMap := make(map[int]map[int]string)
 	for x, str := range inputStrings {
 		insideNumberString := false
 		numberString := ""
 		var numberStart *int
 		var numberEnd *int
+		m := make(map[int]string)
 		for y, char := range str {
 			// Char is a digit
 			if _, err := strconv.Atoi(string(char)); err == nil {
@@ -52,6 +55,10 @@ func GearRatios() {
 						fmt.Println(numberString)
 						value, _ := strconv.Atoi(numberString)
 						sum += value
+						for i := *numberStart; i <= *numberEnd; i++ {
+							m[i] = numberString
+						}
+						partNumbersMap[x] = m
 					}
 					numberStart = nil
 					numberEnd = nil
@@ -61,6 +68,75 @@ func GearRatios() {
 		}
 	}
 	fmt.Println(sum)
+	// Part two
+	gearFactor := 0
+	for x, str := range inputStrings {
+		for y, char := range str {
+			if char == '*' {
+				fmt.Println("Star spotted at", x, y)
+				apn := make([]string, 6)
+				adjacentPartNumbers := apn[:0]
+				//Check left
+				if y > 0 {
+					if numb, ok := partNumbersMap[x][y-1]; ok {
+						adjacentPartNumbers = append(adjacentPartNumbers, numb)
+					}
+				}
+				// Check right
+				if y < RowLength {
+					if numb, ok := partNumbersMap[x][y+1]; ok {
+						adjacentPartNumbers = append(adjacentPartNumbers, numb)
+					}
+				}
+				// Check up
+				if x > 0 {
+					if numb, ok := partNumbersMap[x-1][y]; ok {
+						adjacentPartNumbers = append(adjacentPartNumbers, numb)
+					} else { // Checking top-right and top-left only makes sense if there's no number directly above
+						// Check top-left
+						if y > 0 {
+							if numb, ok := partNumbersMap[x-1][y-1]; ok {
+								adjacentPartNumbers = append(adjacentPartNumbers, numb)
+							}
+						}
+						// Check top-right
+						if y < RowLength {
+							if numb, ok := partNumbersMap[x-1][y+1]; ok {
+								adjacentPartNumbers = append(adjacentPartNumbers, numb)
+							}
+						}
+					}
+				}
+				// Check down
+				if x < ColumnHeight {
+					if numb, ok := partNumbersMap[x+1][y]; ok {
+						adjacentPartNumbers = append(adjacentPartNumbers, numb)
+					} else { // Checking bot-right and bot-left only makes sense if there's no number directly below
+						// Check bot-left
+						if y > 0 {
+							if numb, ok := partNumbersMap[x+1][y-1]; ok {
+								adjacentPartNumbers = append(adjacentPartNumbers, numb)
+							}
+						}
+						// Check bot-right
+						if y < RowLength {
+							if numb, ok := partNumbersMap[x+1][y+1]; ok {
+								adjacentPartNumbers = append(adjacentPartNumbers, numb)
+							}
+						}
+					}
+				}
+				if len(adjacentPartNumbers) == 2 {
+					val1, _ := strconv.Atoi(adjacentPartNumbers[0])
+					val2, _ := strconv.Atoi(adjacentPartNumbers[1])
+
+					gearRatio := val1 * val2
+					gearFactor += gearRatio
+				}
+			}
+		}
+	}
+	fmt.Println(gearFactor)
 }
 
 func checkForSymbolsNearby(rowNumber, start, end int, rowsAndColumns []string) bool {
