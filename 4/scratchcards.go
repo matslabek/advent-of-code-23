@@ -12,9 +12,19 @@ func Scratch() {
 		fmt.Println("Error reading file:", err)
 		return
 	}
+	// Points for part one
 	points := 0
-	for _, inputString := range inputStrings {
+
+	nrOfCards := len(inputStrings)
+
+	cardsMap := make(map[int]int)
+	for i := 1; i <= nrOfCards; i++ {
+		cardsMap[i] = 1
+	}
+	for cardNumber, inputString := range inputStrings {
+		cardNumber += 1 // Start counting from 1
 		matches := 0
+		multiplier := cardsMap[cardNumber]
 		splitCard := strings.Split(inputString, ":")
 		splitNumbers := strings.Split(splitCard[1], "|")
 		winningNumbers := strings.Fields(splitNumbers[0])
@@ -24,6 +34,8 @@ func Scratch() {
 				matches++
 			}
 		}
+
+		// Only relevant to part 1:
 		gamePoints := 0
 		for i := 0; i < matches; i++ {
 			if i == 0 {
@@ -33,8 +45,22 @@ func Scratch() {
 			}
 		}
 		points += gamePoints
+		// ---
+
+		// Part 2 of the puzzle
+		for i := 0; i < matches; i++ {
+			cardsMap[cardNumber+1+i] += multiplier
+		}
 	}
+	//Part 1 answer
 	fmt.Println(points)
+
+	sum := 0
+	for i := 1; i <= nrOfCards; i++ {
+		sum += cardsMap[i]
+	}
+	// Part 2 answer
+	fmt.Println(sum)
 }
 
 func contains(s []string, e string) bool {
