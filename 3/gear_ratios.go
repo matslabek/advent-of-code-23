@@ -10,7 +10,7 @@ const FilePath = "3/input.txt"
 const RowLength = 140
 const ColumnHeight = 140
 
-var symbols = [10]string{"&", "*", "/", "$", "@", "=", "-", "#", "+", "%"}
+var symbols = []string{"&", "*", "/", "$", "@", "=", "-", "#", "+", "%"}
 
 func GearRatios() {
 	inputStrings, err := trebuchet.ReadStringsFromFile(FilePath)
@@ -74,8 +74,7 @@ func GearRatios() {
 		for y, char := range str {
 			if char == '*' {
 				fmt.Println("Star spotted at", x, y)
-				apn := make([]string, 6)
-				adjacentPartNumbers := apn[:0]
+				adjacentPartNumbers := make([]string, 0)
 				//Check left
 				if y > 0 {
 					if numb, ok := partNumbersMap[x][y-1]; ok {
@@ -179,7 +178,7 @@ func checkForSymbolsNearby(rowNumber, start, end int, rowsAndColumns []string) b
 	return false
 }
 
-func contains(s [10]string, e string) bool {
+func contains(s []string, e string) bool {
 	for _, a := range s {
 		if a == e {
 			return true

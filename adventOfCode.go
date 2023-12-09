@@ -1,7 +1,7 @@
 package main
 
-import puzzle "AdventOfCode/4"
+import puzzle "AdventOfCode/3"
 
 func main() {
-	puzzle.Scratch()
+	puzzle.GearRatios()
 }
