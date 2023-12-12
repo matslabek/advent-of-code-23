@@ -18,7 +18,7 @@ func WaitForIt() {
 	}
 	times := strings.Fields(inputStrings[0])[1:]
 	distances := strings.Fields(inputStrings[1])[1:]
-
+	// Part 1
 	product := 1
 	for i := 0; i < len(times); i++ {
 		t, _ := strconv.Atoi(times[i])
@@ -27,6 +27,17 @@ func WaitForIt() {
 		product *= 1 + ww[1] - ww[0]
 	}
 	fmt.Println(product)
+
+	//Part 2
+	time := strings.Join(times[:], "")
+	dist := strings.Join(distances[:], "")
+	t2, _ := strconv.Atoi(time)
+	d2, _ := strconv.Atoi(dist)
+
+	ww2 := calculateWinningWays(t2, d2)
+	fmt.Println(ww2)
+	prod2 := 1 + ww2[1] - ww2[0]
+	fmt.Println(prod2)
 }
 
 func calculateWinningWays(time, distanceToBeat int) []int {
