@@ -1,7 +1,7 @@
 package main
 
-import puzzle "AdventOfCode/6"
+import puzzle "AdventOfCode/7"
 
 func main() {
-	puzzle.WaitForIt()
+	puzzle.CamelCards()
 }
