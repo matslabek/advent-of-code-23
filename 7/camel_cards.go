@@ -58,6 +58,7 @@ func CamelCards() {
 		}
 	}
 	cardTypes = append(cardTypes, fiveOfKind, fourOfKind, fullHouse, threeOfKind, twoPair, onePair, highCard)
+	fmt.Println(cardTypes)
 	// Base rank - calculated base on what's the card type
 	baseValByType := make([]int, 7)
 	baseVal := 0
@@ -73,7 +74,7 @@ func CamelCards() {
 			return singleCardComparer(sl[i], sl[j])
 		})
 		for i := len(sl) - 1; i >= 0; i-- {
-			rank := (baseValByType[typeNumber] + i + 1)
+			rank := baseValByType[typeNumber] + i + 1
 			totalBid += rank * cardBids[sl[i]]
 		}
 	}
@@ -89,6 +90,30 @@ func handEvaluator(hand string) int {
 		} else {
 			cardMap[string(hand[i])] = 1
 		}
+	}
+
+	// Extra step for Part 2
+	counter := 0
+	maxCard := ""
+	maxVal := 0
+	for k, v := range cardMap {
+		if k != "J" {
+			if counter == 0 {
+				maxCard = k
+				maxVal = v
+			} else if v > maxVal {
+				maxCard = k
+				maxVal = v
+			}
+		}
+		counter++
+	}
+
+	manyJokers, hasJokers := cardMap["J"]
+	if hasJokers {
+		cardMap[maxCard] += manyJokers
+		//Drop jokers
+		delete(cardMap, "J")
 	}
 
 	cardMapValues := make([]int, 0)
@@ -145,7 +170,7 @@ func singleCardComparer(hand1, hand2 string) bool {
 		"A": 14,
 		"K": 13,
 		"Q": 12,
-		"J": 11,
+		"J": 1, // Part 1 used to be 11
 		"T": 10,
 		"9": 9,
 		"8": 8,
