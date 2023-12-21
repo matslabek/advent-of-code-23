@@ -1,8 +1,8 @@
 package seed
 
 import (
-	trebuchet "AdventOfCode/1"
 	"fmt"
+	trebuchet "github.com/matslabek/advent-of-code-23/1"
 	"slices"
 	"sort"
 	"strconv"

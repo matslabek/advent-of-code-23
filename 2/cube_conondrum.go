@@ -1,8 +1,8 @@
 package cube_conundrum
 
 import (
-	"AdventOfCode/1"
 	"fmt"
+	"github.com/matslabek/advent-of-code-23/1"
 	"strconv"
 	"strings"
 )

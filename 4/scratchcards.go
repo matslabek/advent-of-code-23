@@ -1,8 +1,8 @@
 package scratchcards
 
 import (
-	treb "AdventOfCode/1"
 	"fmt"
+	treb "github.com/matslabek/advent-of-code-23/1"
 	"strings"
 )
 
