@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	puzzle.Wasteland()
+	puzzle.Part2()
 }
