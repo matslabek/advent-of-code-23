@@ -1,9 +1,12 @@
 package main
 
 import (
-	puzzle "github.com/matslabek/advent-of-code-23/8"
+	"fmt"
+	trebuchet "github.com/matslabek/advent-of-code-23/1"
+	puzzle "github.com/matslabek/advent-of-code-23/9"
 )
 
 func main() {
-	puzzle.Part2()
+	input, _ := trebuchet.ReadStringsFromFile("9/input.txt")
+	fmt.Println(puzzle.Oasis(input))
 }
